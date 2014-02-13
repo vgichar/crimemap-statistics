@@ -1,0 +1,68 @@
+mvr-statistics web application specification
+
+1. Application functionalities:
+
+	- Global statistics:
+		* "termal" map (colors by crime intensity)
+		* view total number of crimes in time interval
+		* total number of crimes by municipality
+		* total number of crimes by type
+		* total number of crimes by type by municipality
+
+	- filters:
+		* municipality(s)
+		* crime type(s)
+		* time interval
+			** quartal
+			** month(s) of year
+			** day(s) of week
+
+2. Input Data:
+
+	"municipalities" : {
+		"municipality_name1" : {
+			"id" : "id1",
+			"svg_path" : "path1"
+		},
+		"municipality_name2" : {
+			"id" : "id2",
+			"svg_path" : "path2"
+		}, ...
+	}
+
+	"events" : [
+		{
+			"id" : "id1", 
+			"name" : "name1", 
+			"description" : "description1", 
+			"location" : "municipality_id1", 
+			"type" : {
+				"type_id" : "type_id1", 
+				"type_name" : "type_name1"
+			}
+		},
+		{
+			"id" : "id2", 
+			"name" : "name2", 
+			"description" : "description2", 
+			"location" : "municipality_id2", 
+			"type" : {
+				"type_id" : "type_id2", 
+				"type_name" : "type_name2"
+			}
+		}, ...
+	]
+
+3. Appilcation Pages
+
+	- Home:
+		* termal map
+		* list of events
+	- Filter:
+		* filters
+		* filtered termal map
+		* filtered  list of events
+	- About:
+		About the developer, mentor and faculty
+	- Event-Detail (no menu link, on event click)
+		* event details
