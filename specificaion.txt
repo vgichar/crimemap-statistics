@@ -59,10 +59,16 @@ mvr-statistics web application specification
 		* termal map
 		* list of events
 	- Filter:
-		* filters
+		* filters:
+			** municipality(s)
+			** crime type(s)
+			** time interval
+				*** quartal
+				*** month(s) of year
+				*** day(s) of week
 		* filtered termal map
 		* filtered  list of events
 	- About:
 		About the developer, mentor and faculty
 	- Event-Detail (no menu link, on event click)
-		* event details
+		* event details (title, description, type, location ...)
