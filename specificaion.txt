@@ -4,7 +4,7 @@ mvr-statistics web application specification
 
 	- Global statistics:
 		* "termal" map (colors by crime intensity)
-		* view total number of crimes in time interval
+		* total number of crimes in time interval
 		* total number of crimes by municipality
 		* total number of crimes by type
 		* total number of crimes by type by municipality
@@ -58,6 +58,7 @@ mvr-statistics web application specification
 	- Home:
 		* termal map
 		* list of events
+		* unfiltered statistic graphs
 	- Filter:
 		* filters:
 			** municipality(s)
@@ -68,6 +69,7 @@ mvr-statistics web application specification
 				*** day(s) of week
 		* filtered termal map
 		* filtered  list of events
+		* statistic graphs
 	- About:
 		About the developer, mentor and faculty
 	- Event-Detail (no menu link, on event click)
