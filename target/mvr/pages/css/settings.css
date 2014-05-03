@@ -1,0 +1,36 @@
+.settings-content .left-content{
+	width: 145px;
+	margin-right: 15px;
+	border-right: 1px solid #aaa;
+}
+
+.settings-content .left-content ul{
+	list-style-type: none;
+	padding-left: 0px;
+}
+
+.settings-content .left-content ul li{
+	padding: 5px 10px 5px 30px;
+	color: #777;
+	font-size: 14px;
+}
+
+.settings-content .left-content ul li.active{
+	border-left: 20px solid #5285DB;
+	padding-left: 10px;
+	color: black;
+	cursor: pointer;
+}
+
+.settings-content .left-content ul li:hover:not(.active){
+	cursor: pointer;
+	color: #444;
+}
+
+.settings-content .left-content ul li.split{
+	margin-top: 20px;
+}
+
+.settings-content .right-content{
+	width: 690px;
+}
