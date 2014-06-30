@@ -28,11 +28,11 @@
 
         <div class="right">
             <ul id="dropdown-menu">
-                <li click-active="login-popup" persist>{{User.isLoggedIn?lang.logout:lang.login}}</li>
+                <li click-active="login-popup" persist>{{User.isLoggedIn()?lang.logout:lang.login}}</li>
                 <li onclick="javascript: location.href = '#/settings';">{{lang.settings}}</li>
             </ul>
             <form id="login-popup" action="" autocomplete="off">
-                <table class="{{User.isLoggedIn?'hide':'show'}}">
+                <table class="{{!User.isLoggedIn()?'hide':'show'}}">
                     <tr>
                         <td>
                             <label for="username">{{lang.name}}</label>
@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" class="right" ng-click="User.login();" value="{{lang.login}}">
+                            <input type="submit" class="right" ng-click="User.login(User.username, User.password);" value="{{lang.login}}">
                             <img src="img/loader.gif" class="hide right" style="margin-right: 10px;" id="loader">
 
                             <input type="checkbox" id="remember" ng-model="User.remember" ng-init="User.remember = true"/>
@@ -59,7 +59,7 @@
                         </td>
                     </tr>
                 </table>
-                <table class="{{!User.isLoggedIn?'hide':'show'}}">
+                <table class="{{User.isLoggedIn()?'hide':'show'}}">
                     <tr>
                         <td>
                             {{lang.name}}: {{User.username}}

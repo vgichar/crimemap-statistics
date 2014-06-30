@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" class="right" ng-click="User.login();" value="{{lang.login}}">
+                            <input type="submit" class="right" ng-click="User.login(User.username, User.password);" value="{{lang.login}}">
                             <img src="img/loader.gif" class="hide right" style="margin-right: 10px;" id="loader">
 
                             <input type="checkbox" id="remember" ng-model="User.remember" ng-init="User.remember = true"/>

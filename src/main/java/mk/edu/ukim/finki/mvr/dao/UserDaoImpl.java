@@ -48,8 +48,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void delete(int id) {
-        if (getById(id) != null) {
-            getCurrentSession().delete(getById(id));
+        User u = getById(id);
+        if (u != null) {
+            getCurrentSession().delete(u);
         }
     }
 
@@ -65,22 +66,22 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getByName(String name) {
-        Query q = getCurrentSession().createQuery("from User where name = :un");
-        q.setParameter("un", name);
+        Query q = getCurrentSession().createQuery("from User where name = :un")
+                .setParameter("un", name);
         return (User) q.uniqueResult();
     }
 
     @Override
     public User getByEmail(String email) {
-        Query q = getCurrentSession().createQuery("from User where email = :email");
-        q.setParameter("email", email);
+        Query q = getCurrentSession().createQuery("from User where email = :email")
+                .setParameter("email", email);
         return (User) q.uniqueResult();
     }
 
     @Override
     public List<User> gueryByUsertype(String usertype) {
-        Query q = getCurrentSession().createQuery("from User where usertype = :usertype");
-        q.setParameter("usertype", usertype);
+        Query q = getCurrentSession().createQuery("from User where usertype = :usertype")
+                .setParameter("usertype", usertype);
         return (List<User>) q.list();
     }
 }

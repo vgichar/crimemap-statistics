@@ -3,8 +3,8 @@
         <ul menu>
             <li tab-id="general">{{lang.menu_general}}</li>
             <li tab-id="user">{{lang.menu_user}}</li>
-            <li tab-id="content" class="split {{User.usertype=='admin'?'show':'hide'}}">{{lang.menu_content}}</li>
-            <li tab-id="users" class="{{User.usertype=='admin'?'show':'hide'}}">{{lang.menu_users}}</li>
+            <li tab-id="content" class="split {{User.usertype=='ADMIN'?'show':'hide'}}">{{lang.menu_content}}</li>
+            <li tab-id="users" class="{{User.usertype=='ADMIN'?'show':'hide'}}">{{lang.menu_users}}</li>
         </ul>
     </div>
     <div class="left right-content">
@@ -12,11 +12,7 @@
         <div id="user">{{lang.menu_user}}</div>
         <div id="content">{{lang.menu_content}}</div>
         <div id="users">
-            <ul>
-                <li ng-repeat="UserAccount in UserAccounts">
-                    {{UserAccount.name}} - {{UserAccount.usertype}}
-                </li>
-            </ul>
+            <div ng-include="'view/usersAdministration.html'" ng-controller="usersAdministrationController"></div>
         </div>
     </div>
 </div>

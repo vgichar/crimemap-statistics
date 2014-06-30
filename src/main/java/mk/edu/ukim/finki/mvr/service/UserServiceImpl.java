@@ -17,25 +17,25 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
 
     @Override
-    public boolean register(User entity) {
-        if(userDao.getByName(entity.getName()) == null || userDao.getByEmail(entity.getEmail()) == null){
-            return false;
+    public User register(User entity) {
+        if(userDao.getByName(entity.getName()) != null || userDao.getByEmail(entity.getEmail()) != null){
+            return null;
         }
         userDao.insert(entity);
-        return true;
+        return entity;
     }
 
     @Override
-    public boolean login(User entity) {
+    public User login(User entity) {
         User user = userDao.getByName(entity.getName());
-        if(user != null){
-            return user.getPassword().equals(entity.getPassword());
+        if(user != null && user.getPassword().equals(entity.getPassword())){
+            return user;
         }
         user = userDao.getByEmail(entity.getEmail());
-        if(user != null){
-            return user.getPassword().equals(entity.getPassword());
+        if(user != null && user.getPassword().equals(entity.getPassword())){
+            return user;
         }
-        return false;
+        return null;
     }
 
     @Override
