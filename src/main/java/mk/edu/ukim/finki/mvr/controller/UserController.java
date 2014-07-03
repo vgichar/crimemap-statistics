@@ -3,6 +3,7 @@ package mk.edu.ukim.finki.mvr.controller;
 import java.util.List;
 import mk.edu.ukim.finki.mvr.service.UserService;
 import mk.edu.ukim.finki.mvr.model.User;
+import mk.edu.ukim.finki.mvr.model.Usertype;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,9 +76,15 @@ public class UserController {
         return service.queryAll();
     }
 
-    @RequestMapping(value = "queryByUsertype/{usertype}", method = RequestMethod.GET)
+    @RequestMapping(value = "queryAllUsertypes", method = RequestMethod.GET)
     public @ResponseBody
-    List<User> queryByUsertype(@PathVariable String usertype) {
-        return service.queryByUsertype(usertype);
+    List<Usertype> queryAllUsertypes() {
+        return service.queryAllUsertypes();
+    }
+
+    @RequestMapping(value = "queryUsersByUsertype", method = RequestMethod.POST)
+    public @ResponseBody
+    List<User> queryUsersByUsertype(@RequestBody Usertype usertype) {
+        return service.queryUsersByUsertype(usertype);
     }
 }

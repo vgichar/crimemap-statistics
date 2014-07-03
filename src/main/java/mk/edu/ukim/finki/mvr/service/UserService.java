@@ -1,7 +1,7 @@
 package mk.edu.ukim.finki.mvr.service;
 
 import java.util.List;
-import mk.edu.ukim.finki.mvr.model.User;
+import mk.edu.ukim.finki.mvr.model.*;
 
 public interface UserService {
     public User register(User entity);
@@ -11,6 +11,7 @@ public interface UserService {
     public User getById(int id);
     public User getByName(String name);
     public User getByEmail(String email);
-    public List<User> queryByUsertype(String usertype);
     public List<User> queryAll();
+    public List<Usertype> queryAllUsertypes();
+    public List<User> queryUsersByUsertype(Usertype usertype);
 }

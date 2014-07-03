@@ -3,13 +3,14 @@ package mk.edu.ukim.finki.mvr.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-@Entity(name = "User")
+@Entity(name = "Users")
 public class User {
 
     @Id
     @GeneratedValue
-    private int id;
+    private int userId;
 
     private String name;
     
@@ -17,21 +18,17 @@ public class User {
 
     private String password;
     
-    // PUBLIC       // Public events only
-    // PS           // Police station events
-    // SVR          // Internal affairs sector events
-    // MODERATOR    // All events
-    // ADMIN        // All events + create-assign users
-    private String usertype;
+    @ManyToOne
+    private Usertype usertype;
     
     private boolean readOnlyPermission;
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -58,11 +55,11 @@ public class User {
         this.password = password;
     }
 
-    public String getUsertype() {
+    public Usertype getUsertype() {
         return usertype;
     }
 
-    public void setUsertype(String usertype) {
+    public void setUsertype(Usertype usertype) {
         this.usertype = usertype;
     }
 

@@ -22,14 +22,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void insert(User entity) {
-        if (getById(entity.getId()) == null) {
+        if (getById(entity.getUserId()) == null) {
             getCurrentSession().save(entity);
         }
     }
 
     @Override
     public void update(User entity) {
-        User u = getById(entity.getId());
+        User u = getById(entity.getUserId());
         if (u != null) {
             u.update(entity);
             getCurrentSession().update(u);
@@ -38,7 +38,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void insertOrUpdate(User entity) {
-        User u = getById(entity.getId());
+        User u = getById(entity.getUserId());
         if(u == null){
             insert(entity);
         }else{
@@ -61,27 +61,20 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> queryAll() {
-        return (List<User>) getCurrentSession().createQuery("from User").list();
+        return (List<User>) getCurrentSession().createQuery("from Users").list();
     }
 
     @Override
     public User getByName(String name) {
-        Query q = getCurrentSession().createQuery("from User where name = :un")
+        Query q = getCurrentSession().createQuery("from Users where name = :un")
                 .setParameter("un", name);
         return (User) q.uniqueResult();
     }
 
     @Override
     public User getByEmail(String email) {
-        Query q = getCurrentSession().createQuery("from User where email = :email")
+        Query q = getCurrentSession().createQuery("from Users where email = :email")
                 .setParameter("email", email);
         return (User) q.uniqueResult();
-    }
-
-    @Override
-    public List<User> gueryByUsertype(String usertype) {
-        Query q = getCurrentSession().createQuery("from User where usertype = :usertype")
-                .setParameter("usertype", usertype);
-        return (List<User>) q.list();
     }
 }

@@ -1,22 +1,30 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
 
-	<context:component-scan base-package="mk.edu.ukim.finki.mvr" />
+    <context:component-scan base-package="mk.edu.ukim.finki.mvr" />
 	
-	<mvc:resources mapping="/css/**" location="/pages/css/" />
-	<mvc:resources mapping="/database/**" location="/pages/database/" />
-	<mvc:resources mapping="/img/**" location="/pages/img/" />
-	<mvc:resources mapping="/js/**" location="/pages/js/" />
-	<mvc:resources mapping="/lang/**" location="/pages/lang/" />
-	<mvc:resources mapping="/view/**" location="/pages/view/" />
+    <mvc:resources mapping="/css/**" location="/pages/css/" />
+    <mvc:resources mapping="/database/**" location="/pages/database/" />
+    <mvc:resources mapping="/img/**" location="/pages/img/" />
+    <mvc:resources mapping="/js/**" location="/pages/js/" />
+    <mvc:resources mapping="/lang/**" location="/pages/lang/" />
+    <mvc:resources mapping="/view/**" location="/pages/view/" />
         
-	<import resource="security-context.xml"/>
+    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="classpath:init_database.sql" />
+    </jdbc:initialize-database>
+        
+    <import resource="security-context.xml"/>
 </beans>
