@@ -3,7 +3,7 @@ package mk.edu.ukim.finki.mvr.service;
 import java.util.List;
 
 import mk.edu.ukim.finki.mvr.dao.UserDao;
-import mk.edu.ukim.finki.mvr.dao.UsertypeDao;
+import mk.edu.ukim.finki.mvr.dao.UserRoleDao;
 import mk.edu.ukim.finki.mvr.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
     
     @Autowired
-    UsertypeDao usertypeDao;
+    UserRoleDao usertypeDao;
 
     @Override
     public User register(User entity) {
@@ -73,12 +73,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Usertype> queryAllUsertypes() {
-        return usertypeDao.queryAllUsertypes();
+    public List<UserRole> queryAllUserRoles() {
+        return usertypeDao.queryAllUserRoles();
     }
 
     @Override
-    public List<User> queryUsersByUsertype(Usertype usertype) {
-        return usertypeDao.queryUsersByUsertype(usertype);
+    public List<User> queryUsersByUserRole(UserRole usertype) {
+        return usertypeDao.queryUsersByUserRole(usertype);
     }
 }

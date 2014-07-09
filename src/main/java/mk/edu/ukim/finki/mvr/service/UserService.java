@@ -12,6 +12,6 @@ public interface UserService {
     public User getByName(String name);
     public User getByEmail(String email);
     public List<User> queryAll();
-    public List<Usertype> queryAllUsertypes();
-    public List<User> queryUsersByUsertype(Usertype usertype);
+    public List<UserRole> queryAllUserRoles();
+    public List<User> queryUsersByUserRole(UserRole usertype);
 }

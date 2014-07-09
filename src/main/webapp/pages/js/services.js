@@ -44,10 +44,9 @@ services.service('User', ['$resource', 'UserAccounts', function($resource, UserA
     // @scope.name = "username",  @scope.password = "password"
     this.login = function(name, password){
         UserAccounts.login({"userId" : -1, "name" : name, "email" : name, "password" : password}, function(user){
-          console.log(user);
           if(user.userId != -1){
             that.message = "";
-            that.usertype = user['usertype']['tole'];
+            that.usertype = user['userRole']['role'];
             that.isLoggedIn = true;
             that.password = null;          // decoration
             that.username = that.username; // decoration
@@ -94,8 +93,8 @@ services.service('UserAccounts', ['$resource', function($resource){
       login: {method : 'POST', params: {uri : "login"}, isArray : false},
       logout: {method : 'GET', params: {uri : "logout"}, isArray : false},
       queryAll: {method : 'GET', params: {uri : "queryAll"}, isArray : true},
-      queryAllUsertypes: {method : 'GET', params: {uri : "queryAllUsertypes"}, isArray : true},
-      queryUsersByUsertype: {method : 'POST', params: {uri : "queryUsersByUsertype"}, isArray : true},
+      queryAllUsertypes: {method : 'GET', params: {uri : "queryAllUserRoles"}, isArray : true},
+      queryUsersByUsertype: {method : 'POST', params: {uri : "queryUsersByUserRole"}, isArray : true},
       update: {method : 'PUT', params: {uri : "update"}, isArray : false},
       delete: {method : 'DELETE', params: {uri : "delete", param : "id"}, isArray : false}
     });

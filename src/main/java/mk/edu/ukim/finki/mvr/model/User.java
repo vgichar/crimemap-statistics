@@ -19,7 +19,7 @@ public class User {
     private String password;
     
     @ManyToOne
-    private Usertype usertype;
+    private UserRole userRole;
     
     private boolean readOnlyPermission;
 
@@ -55,12 +55,12 @@ public class User {
         this.password = password;
     }
 
-    public Usertype getUsertype() {
-        return usertype;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setUsertype(Usertype usertype) {
-        this.usertype = usertype;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public boolean getReadOnlyPermission() {
@@ -75,7 +75,7 @@ public class User {
         this.name = u.getName();
         this.email = u.getEmail();
         this.password = u.getPassword();
-        this.usertype = u.getUsertype();
+        this.userRole = u.getUserRole();
         this.readOnlyPermission = u.getReadOnlyPermission();
     }
 }

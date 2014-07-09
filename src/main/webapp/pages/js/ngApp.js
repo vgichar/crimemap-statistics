@@ -43,3 +43,16 @@ app.config(['$routeProvider', function($routeProvider) {
       redirectTo: '/home'
     });
 }]);
+
+app.config(['$httpProvider', function($httpProvider){
+    $httpProvider.interceptors.push(function($q) {
+    return {
+      'responseError': function(rejection) {
+          if(rejection.status === 403){
+              alert("access denied!");
+          }
+          return $q.reject(rejection);
+      }
+    };
+  });
+}]);

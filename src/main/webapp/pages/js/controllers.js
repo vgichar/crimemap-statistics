@@ -99,11 +99,13 @@ controllers.controller('municipalityController', ['$scope', '$routeParams',
 // Dependencies :   @$scope - native,   @$routeParams - native
 controllers.controller('settingsController', ['$scope', 'UserAccounts',
   function ($scope, UserAccounts) {
+      $scope.btnClick = function(){
+          $scope.UserAccounts = UserAccounts.queryAll();
+      }
   }
 ]);
 
 controllers.controller('usersAdministrationController', ['$scope', 'UserAccounts',
   function ($scope, UserAccounts) {
-    $scope.UserAccounts = UserAccounts.queryAll();
   }
 ]);

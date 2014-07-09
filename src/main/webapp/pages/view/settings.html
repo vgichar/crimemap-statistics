@@ -3,16 +3,18 @@
         <ul menu>
             <li tab-id="general">{{lang.menu_general}}</li>
             <li tab-id="user">{{lang.menu_user}}</li>
-            <li tab-id="content" class="split {{User.usertype=='ADMIN'?'show':'hide'}}">{{lang.menu_content}}</li>
-            <li tab-id="users" class="{{User.usertype=='ADMIN'?'show':'hide'}}">{{lang.menu_users}}</li>
+            <li tab-id="content" class="split {{User.usertype=='ROLE_ADMIN'?'show':'hide'}}">{{lang.menu_content}}</li>
+            <li tab-id="users" class="{{User.usertype=='ROLE_ADMIN'?'show':'hide'}}">{{lang.menu_users}}</li>
         </ul>
     </div>
     <div class="left right-content">
-        <div id="general">{{lang.menu_general}}</div>
+        <div id="general">{{UserAccounts}}</div>
         <div id="user">{{lang.menu_user}}</div>
         <div id="content">{{lang.menu_content}}</div>
         <div id="users">
             <div ng-include="'view/usersAdministration.html'" ng-controller="usersAdministrationController"></div>
         </div>
     </div>
+    
+        <button ng-click="btnClick()">Click Me!</button>
 </div>
