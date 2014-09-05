@@ -8,19 +8,16 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     
     <bean id="authenticationEntryPoint" class="mk.edu.ukim.finki.mvr.AuthenticationEntryPoint">
-        <constructor-arg name="loginUrl" value="/security/login"/>
+        <constructor-arg name="loginUrl" value="/"/>
     </bean>
     
     <security:global-method-security secured-annotations="enabled" />
-    <security:http auto-config="true" disable-url-rewriting="true" entry-point-ref="authenticationEntryPoint"> 
-        <!--<security:intercept-url pattern="/User/queryAll" access="ROLE_ADMIN"/>-->
-    </security:http> 
+    <security:http auto-config="true" disable-url-rewriting="true" entry-point-ref="authenticationEntryPoint" />
     
     <security:authentication-manager> 
         <security:authentication-provider> 
             <security:user-service> 
-                <security:user authorities="ROLE_CLIENT" name="riste" password="mp" /> 
-                <security:user authorities="ROLE_CLIENT" name="dimitar" password="mp" /> 
+                <security:user authorities="ROLE_NONE" name="none" password="none" /> 
             </security:user-service> 
         </security:authentication-provider> 
     </security:authentication-manager> 

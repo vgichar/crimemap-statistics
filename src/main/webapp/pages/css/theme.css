@@ -1,207 +1,170 @@
 /* skyblue: #5285DB */
 
+@font-face {
+    font-family: fontAwesome;
+    src: url(FontAwesome.otf);
+}
+
+.icon-font{
+    font-family: fontAwesome !important;
+    font-size: 20px !important;
+    margin: auto !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    padding: 5px !important;
+    border: 0px !important;
+    background: transparent !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
 html{
-	background-color: #f5f5f5;
-	margin: 0px;
-	padding: 0px;
-	min-width: 860px;
-	height: 95%;
-	font-family: Arial,Verdana, Helvetica, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0px;
+    padding: 0px;
+    min-width: 860px;
+    height: 95%;
+    font-family: Arial,Verdana, Helvetica, sans-serif;
 }
 
 body{
-	background-color: #f2f2f2;
-	width: 70%;
-	margin: auto;
-	min-width: 860px;
-	height: 100%;
-	border-left: 1px solid black;
-	border-right: 1px solid black;
-	border-bottom: 1px solid black;
+    background-color: #f2f2f2;
+    width: 70%;
+    margin: auto;
+    min-width: 860px;
+    height: 100%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .hide{
-	display: none;
+    display: none;
 }
 
 .icon{
-	width: 20px;
-	height: 20px;
-	opacity: 0.7;
-	transition: opacity 0.3s ease-in;
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in;
 }
 
 .icon:hover, .icon.click-active{
-	opacity: 1;
-	transition: opacity 0.3s ease-out;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
 }
 
 .clickable{
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .no-select{
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .left{
-	float:left;
+    float:left;
 }
 
 .right{
-	float: right;
+    float: right;
 }
 
 header{
-	background-color: #990000;
-	background: url(../img/back_menu.png) repeat left;
-	color: white;
-	font-size: 12px;
-	font-weight: bold;
+    background-color: #990000;
+    background: #aa2222;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
 
-	padding: 5px 0px;
-	margin: 15px 0px 20px 0px;
+    padding: 0px;
+    margin: 15px 0px 20px 0px;
 }
 
 header .header-logo{
-	float: left;
-	width: 70px;
-	margin-top: -15px;
+    float: left;
+    width: 70px;
+    margin-top: -15px;
 }
 
 header nav{
-	display: inline-block;
-	width: 450px;	 
+    display: inline-block;
+    min-width: 360px;
+    width: 100%;
+    max-width: 430px;
 }
 
 header nav ul{
-	list-style-type: none;
-	display: inline-block;
-	margin: 0px;
-	padding: 5px;
-	width: 100%;
+    list-style-type: none;
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
 }
 
 header nav ul li{
-	display: inline-block;
-	width: 33%;
-	text-align: center;
+    display: inline-block;
+    width: 33%;
+    text-align: center;
 }
 
 header nav ul li a{
-	color: white;
-	text-decoration: none;
+    background: #aa2222;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 5px;
+    padding: 10px 0px;
+    width: 100%;
+    display: block;
 }
 
 header nav ul li a:hover{
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
-header nav ul li a.active{
-	color: yellow;
-	text-decoration: underline;	
+li.android-active{
+    background: yellow;	
 }
 
 header .settings-bar{
-	display: inline-block;
-	padding: 2px;
-	float: right;
-	width: 120px;
+    display: inline;
+    padding: 5px;
+    margin-left: 10px;
+    float: right;
 }
 
-.settings-icon{
-	width: 25px;
-	height: 15px;
-	padding: 5px;
-	cursor: pointer;
-	vertical-align: middle;
+#login-form{
+    display: block;
+    float: right;
 }
 
-#dropdown-menu{
-	display: none;
-	color: black; 
-	list-style-type: none; 
-	border: 1px solid black;
-	border-top: 0px solid black;
-	width: 120px;
-	padding: 0px;
-	position: fixed;
-	margin: -18px 0px 10px -122px;
-    box-shadow: 1px 3px 10px #777;
+#login-form input{
+    padding: 2px;
+    width: 90px;
 }
 
-#dropdown-menu.click-active{
-	display: block;
+#login-form input[type="submit"].icon-font{
+    width: 35px;
+    height: 35px;
 }
 
-#dropdown-menu li{
-	padding: 7px 10px 7px 20px;
-	color: black;
-	border-bottom: 1px solid #ddd;
-	background-color: white;
-	font-size: 14px;
-}
-
-#dropdown-menu li:hover, #dropdown-menu li.click-active{
-	background-color: #5285DB;
-	color: white;
-	cursor: pointer;
-}
-
-#dropdown-menu li a{
-	color: inherit;
-	text-decoration: none;
-}
-
-#login-popup{
-	display: none;
-
-	border: 1px solid #ccc;	
-    box-shadow: 1px 3px 10px #777;
+input[type="submit"]:not(.icon-font){
+    color: #777;
+    border-radius: 3px;
+    border: 1px solid #999;
     background-color: white;
-
-    padding: 15px;
-	width: 280px;
-	position: fixed;
-	margin: 50px 0px 0px -312px	;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-#login-popup{
-	color: #777;
-	font-size: 14px;
-}
-
-#login-popup.click-active{
-	display: block;
-}
-
-#login-popup td{
-	width: 120px;
-}
-
-#login-popup input[type="checkbox"]{
-	margin: 10px 0px 0px 0px;
-}
-
-input[type="submit"]{
-	margin: 0px;
-	padding: 5px;
-	color: #777;
-	border-radius: 2px;
-	border: 1px solid #999;
-	background-color: white;
-	cursor: pointer;
-	font-weight: bold;
-}
-
-input[type="submit"]:hover{
-	box-shadow: 1px 3px 2px #777;
-	margin: -1px 0px 0px -1px;
+input[type="submit"]:not(.icon-font):hover{
+    color: white;
+    background: #5285DB;
 }
 
 path:not(.water){
@@ -214,4 +177,38 @@ path:not(.water){
 path:not(.water):hover{
     fill: red !important;
     stroke: blue !important;
+}
+
+.message-box{
+    width: 100%;
+    position: absolute;
+    top: 15%;
+    left: 0px;
+    z-index: 1000;
+    opacity: 0;
+    padding: 0px;
+    display: none;
+}
+
+.message-box #message-box-container{
+    max-width: 280px;
+    max-height: 120px;
+    border: 1px solid black;
+    background-color: #f5f5f5;
+    margin: auto;
+}
+
+.message-box #message-box-title{
+    background: #aa2222;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.message-box #message-box-text{
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px;
 }

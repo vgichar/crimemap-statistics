@@ -8,6 +8,7 @@ import mk.edu.ukim.finki.mvr.model.User;
 import mk.edu.ukim.finki.mvr.model.UserRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,13 +28,19 @@ public class UserController {
     @Autowired
     UserService service;
 
-    @Autowired
-    SecurityContext securityContext;
-
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "getSessionUser", method = RequestMethod.GET)
     public @ResponseBody
-    User register(@RequestBody User user) {
-        return service.register(user);
+    User getSessionUser() {
+        User u = new User();
+        u.setUserId(-1);
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        if (ctx != null && ctx.getAuthentication() != null) {
+            String username = ctx.getAuthentication().getName();
+            if (username != null && username != "anonymousUser") {
+                u = service.getByName(username);
+            }
+        }
+        return u;
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -49,7 +56,7 @@ public class UserController {
                     return u.getUserRole().getRole();
                 }
             });
-            securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(u.getName(), u.getPassword(), c));
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u.getName(), u.getPassword(), c));
         }
         return u;
     }
@@ -57,28 +64,39 @@ public class UserController {
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public @ResponseBody
     boolean logout() {
-        securityContext.setAuthentication(null);
+        SecurityContextHolder.getContext().setAuthentication(null);
         return true;
     }
 
+    @Secured(value = {"ROLE_ADMIN"})
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public @ResponseBody
+    User register(@RequestBody User user) {
+        return service.register(user);
+    }
+
+    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "getById/{id}", method = RequestMethod.GET)
     public @ResponseBody
     User getById(@PathVariable int id) {
         return service.getById(id);
     }
 
+    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "getByName/{name}", method = RequestMethod.GET)
     public @ResponseBody
     User getByName(@PathVariable String name) {
         return service.getByName(name);
     }
 
+    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "getByEmail/{email}", method = RequestMethod.GET)
     public @ResponseBody
     User getByEmail(@PathVariable String email) {
         return service.getByEmail(email);
     }
 
+    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "update", method = RequestMethod.PUT)
     public @ResponseBody
     boolean update(@RequestBody User user) {
@@ -86,6 +104,7 @@ public class UserController {
         return true;
     }
 
+    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
     boolean delete(@PathVariable int id) {
@@ -93,21 +112,21 @@ public class UserController {
         return true;
     }
 
+    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "queryAll", method = RequestMethod.GET)
     public @ResponseBody
     List<User> queryAll() {
-        if (securityContext.getAuthentication() != null) {
-            return service.queryAll();
-        }
-        return null;
+        return service.queryAll();
     }
 
+    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "queryAllUserRoles", method = RequestMethod.GET)
     public @ResponseBody
     List<UserRole> queryAllUsertypes() {
         return service.queryAllUserRoles();
     }
 
+    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "queryUsersByUserRole", method = RequestMethod.POST)
     public @ResponseBody
     List<User> queryUsersByUsertype(@RequestBody UserRole usertype) {

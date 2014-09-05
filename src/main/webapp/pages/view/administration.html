@@ -1,0 +1,26 @@
+<div class="side-menu-content">
+    <div class="left left-content">
+        <ul menu>
+            <li tab-id="users">{{lang.menu_users}}</li>
+            <li tab-id="content">{{lang.menu_content}}</li>
+        </ul>
+    </div>
+    <div class="left right-content">
+        <div id="users">
+            <div style="width: 30%; float: left;">
+                <label for="name">Username:</label>
+                <input type="text" id="name" />
+            </div>
+            <div style="width: 65%; float: right;">
+                <input type="text" ng-model="searchFilter">
+                <ul type="none">
+                    <li ng-repeat="user in Users | filter:searchFilter" class="list-row">
+                        {{$index + 1}}. {{user.name}} - {{user.email}} <span class="icon-font right clickable">&#xf014;</span><span class="icon-font right clickable">&#xf040;</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+        </div>
+    </div>
+</div>

@@ -1,85 +1,56 @@
 <!DOCTYPE html>
 <html ng-app="mvrApp">
-<head>
-	<title>MVR</title>
-	<meta charset="UTF-8">
-	<script type="text/javascript" src="./js/lib/jquery.min.js"></script>
-	<script type="text/javascript" src="./js/lib/d3.js"></script>
-	<script type="text/javascript" src="./js/lib/crossfilter.js"></script>
-	<script type="text/javascript" src="./js/lib/dc.js"></script>
-	<script type="text/javascript" src="./js/lib/colorbrewer.js"></script>
-	<link rel="shortcut icon" href="./img/tabicon.ico">
-	<link rel="stylesheet" type="text/css" href="./css/theme.css">
-	<link rel="stylesheet" type="text/css" href="./css/settings.css">
-	<link rel="stylesheet" type="text/css" href="./css/lib/jquery-ui.min.css">
-</head>
-<body ng-controller="indexController" ng-init="init()">
-	<header>
-		<a href="http://www.mvr.gov.mk/"><img class="header-logo" src="./img/mvrLogo.png"></a>
-		<nav>
-			<ul>
-				<li><a href="#/home">{{lang.home}}</a></li><li><a href="#/filter">{{lang.filter}}</a></li><li><a href="#/about">{{lang.about}}</a></li>
-			</ul>
-		</nav>
-		<span class="settings-bar" style="width: 120px;">
-			<img src="img/settings.png" class="icon clickable right" click-active="dropdown-menu" persist>
-		</span>
-	</header>
-	
-	<div class="right">
-		<ul id="dropdown-menu">
-			<li click-active="login-popup" persist>{{User.isLoggedIn?lang.logout:lang.login}}</li>
-			<li onclick="javascript: location.href='#/settings';">{{lang.settings}}</li>
-		</ul>
-		<form id="login-popup" action="" autocomplete="off">
-			<table class="{{User.isLoggedIn?'hide':'show'}}">
-				<tr>
-					<td>
-						<label for="username">{{lang.name}}</label>
-					</td>
-					<td>
-						<input type="text" id="username" placeholder="example" ng-model="User.username"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="password">{{lang.password}}</label>
-					</td>
-					<td>
-						<input type="password" id="password" placeholder="password" ng-model="User.password"/>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="submit" class="right" ng-click="User.login(User.username, User.password);" value="{{lang.login}}">
-						<div style="color: red; padding: 5px;">{{User.message}}</div>
-					</td>
-				</tr>
-			</table>
-			<table class="{{!User.isLoggedIn?'hide':'show'}}">
-				<tr>
-					<td>
-						{{lang.name}}: {{User.username}}
-					</td>
-					<td>
-						<input type="submit" class="right" ng-click="User.logout();" value="{{lang.logout}}">
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
-	<div ng-view></div>
+    <head>
+        <title>MVR</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="./js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="./js/lib/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="./js/lib/d3.js"></script>
+        <script type="text/javascript" src="./js/lib/crossfilter.js"></script>
+        <script type="text/javascript" src="./js/lib/dc.js"></script>
+        <script type="text/javascript" src="./js/lib/colorbrewer.js"></script>
+        <link rel="shortcut icon" href="./img/tabicon.ico">
+        <link rel="stylesheet" type="text/css" href="./css/theme.css">
+        <link rel="stylesheet" type="text/css" href="./css/settings.css">
+        <link rel="stylesheet" type="text/css" href="./css/lib/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/lib/font-awesome.min.css">
+    </head>
+    <body ng-controller="indexController" ng-init="init()">
+        <header>
+            <a href="http://www.mvr.gov.mk/"><img class="header-logo" src="./img/mvrLogo.png"></a>
+            <nav>
+                <ul>
+                    <li><a href="#/home">{{lang.home}}</a></li><li><a href="#/filter">{{lang.filter}}</a></li><li class="{{User.usertype=='ROLE_ADMIN'?'show':'hide'}}"><a href="#/administration">{{lang.administration}}</a></li>
+                </ul>
+            </nav>
+            <span class="icon-font clickable right" onclick="javascript: location.href = '#/settings'">&#xf085;</span>
+            <form id="login-form" action="#/home" autocomplete="off">
+                <span class="{{User.isLoggedIn?'hide':'show'}}">
+                    <label for="username">{{lang.name}}: </label>
+                    <input type="text" id="username" placeholder="example" ng-model="User.username"/>
+                    <label for="password">{{lang.password}}: </label>
+                    <input type="password" id="password" placeholder="password" ng-model="User.password"/>
+                    <input type="submit" ng-click="User.login(User.username, User.password);" class="icon-font clickable" title="{{lang.login}}" value="&#xf090;">
+                </span>
+                <span class="{{User.isLoggedIn?'show':'hide'}}">
+                    {{lang.name}}: {{User.username}}
+                    <input type="submit"  ng-click="User.logout();" class="icon-font clickable" title="{{lang.logout}}" value="&#xf08b;">
+                </span>
+            </form>
+        </header>
+        <div ng-view></div>
+    <message-box />
 
 
-	<script type="text/javascript" src="./js/lib/angular.min.js"></script>
-	<script type="text/javascript" src="./js/lib/angular-resource.min.js"></script>
-	<script type="text/javascript" src="./js/lib/angular-route.min.js"></script>
-	<script type="text/javascript" src="./js/lib/angular-animate.min.js"></script>
-	<script type="text/javascript" src="./js/lib/angular-local-storage.js"></script>
+    <script type="text/javascript" src="./js/lib/angular.min.js"></script>
+    <script type="text/javascript" src="./js/lib/angular-resource.min.js"></script>
+    <script type="text/javascript" src="./js/lib/angular-route.min.js"></script>
+    <script type="text/javascript" src="./js/lib/angular-animate.min.js"></script>
+    <script type="text/javascript" src="./js/lib/angular-local-storage.js"></script>
 
-	<script type="text/javascript" src="./js/ngApp.js"></script>
-	<script type="text/javascript" src="./js/controllers.js"></script>
-	<script type="text/javascript" src="./js/services.js"></script>
-	<script type="text/javascript" src="./js/directives.js"></script>
+    <script type="text/javascript" src="./js/ngApp.js"></script>
+    <script type="text/javascript" src="./js/controllers.js"></script>
+    <script type="text/javascript" src="./js/services.js"></script>
+    <script type="text/javascript" src="./js/directives.js"></script>
 </body>
 </html>

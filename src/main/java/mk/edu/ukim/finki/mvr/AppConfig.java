@@ -86,9 +86,4 @@ public class AppConfig {
         resolver.setViewClass(JstlView.class);
         return resolver;
     }
-    
-    @Bean
-    public SecurityContext getSecurityContext(){
-        return SecurityContextHolder.getContext();
-    }
 }

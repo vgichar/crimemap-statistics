@@ -1,36 +1,45 @@
-.settings-content .left-content{
-	width: 145px;
+.side-menu-content .left-content{
+	width: 15%;
 	margin-right: 15px;
 	border-right: 1px solid #aaa;
 }
 
-.settings-content .left-content ul{
+.side-menu-content .left-content ul{
 	list-style-type: none;
 	padding-left: 0px;
 }
 
-.settings-content .left-content ul li{
+.side-menu-content .left-content ul li{
 	padding: 5px 10px 5px 30px;
 	color: #777;
 	font-size: 14px;
 }
 
-.settings-content .left-content ul li.active{
+.side-menu-content .left-content ul li.google-active{
 	border-left: 20px solid #5285DB;
 	padding-left: 10px;
 	color: black;
 	cursor: pointer;
 }
 
-.settings-content .left-content ul li:hover:not(.active){
+.side-menu-content .left-content ul li:hover:not(.google-active){
 	cursor: pointer;
 	color: #444;
 }
 
-.settings-content .left-content ul li.split{
+.side-menu-content .left-content ul li.split{
 	margin-top: 20px;
 }
 
-.settings-content .right-content{
-	width: 690px;
+.side-menu-content .right-content{
+	width: 80%;
+}
+
+.list-row{
+    border-bottom: 1px solid black;
+    padding: 7px;
+}
+
+.list-row:hover{
+    background: rgba(0, 0, 0, 0.05);
 }

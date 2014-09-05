@@ -1,9 +1,12 @@
 {
+    "create" : "Креирај",
+    "update" : "Промени",
+    "delete" : "Избриши",
 	"wrongCredentials" : "Погрешни детали!",
 	"hello" : "Здраво",
 	"home" : "Дома",
 	"filter" : "Детален Преглед",
-	"about" : "За Нас",
+	"administration" : "Аднимистрација",
 	"login" : "Најави се",
 	"logout" : "Одјави се",
 	"settings" : "Опции",
