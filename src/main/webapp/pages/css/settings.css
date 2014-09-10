@@ -43,3 +43,15 @@
 .list-row:hover{
     background: rgba(0, 0, 0, 0.05);
 }
+
+table.panel td{
+    padding: 5px;
+}
+
+table.panel .ng-invalid{
+    background-color: #ffaaaa;
+}
+
+table.panel .ng-valid{
+    background-color: #aaffaa;
+}

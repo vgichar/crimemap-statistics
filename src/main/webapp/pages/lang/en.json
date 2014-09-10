@@ -1,4 +1,11 @@
 {
+    "editUser" :"Edit User",
+    "submit" : "Submit",
+    "role" : "Role",
+    "search" : "Search",
+    "newUser" : "New User",
+    "cpassword" : "Confirm Password",
+    "email": "Email",
     "create" : "Create",
     "update" : "Update",
     "delete" : "Delete",
@@ -102,4 +109,5 @@
         "gorce_petrov": "Gjorche Petrov",
         "saraj": "Saraj"
     }
+
 }

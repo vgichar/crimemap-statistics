@@ -7,20 +7,65 @@
     </div>
     <div class="left right-content">
         <div id="users">
-            <div style="width: 30%; float: left;">
-                <label for="name">Username:</label>
-                <input type="text" id="name" />
-            </div>
-            <div style="width: 65%; float: right;">
-                <input type="text" ng-model="searchFilter">
+            <form novalidate name="form" >
+                <table style="width: 30%;" class="left panel">
+                    <thead>
+                        <tr>
+                            <th colspan="2">{{submit=="new"?lang.newUser:lang.editUser}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><label for="email">{{lang.email}}:</label></td>
+                            <td><input type="email" id="email" ng-model="email" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="name">{{lang.name}}:</label></td>
+                            <td><input type="text" id="name" ng-model="name" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="password">{{lang.password}}:</label></td>
+                            <td><input type="password" id="password" ng-model="password" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="cpassword">{{lang.cpassword}}:</label></td>
+                            <td><input type="password" id="cpassword" ng-model="cpassword" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="roles">{{lang.role}}:</label></td>
+                            <td>
+                                <select id="roles" ng-model="userRole" required>
+                                    <option ng-repeat="role in UserRoles" value="{{role.role}}">{{role.role}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" ng-model="submit" value="{{lang.submit}}" ng-click="submit=='new'?ClickRegisterUser():ClickEditUser(submit);" ng-disabled="form.$invalid || password != cpassword" /></td>
+                            <td><button ng-click="submit='new'; name=null; email=null; userRole=null;" class="{{submit!='new'?'show':'hide'}}">{{lang.newUser}}</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <div style="width: 65%;" class="right pannel">
+                <table style="padding-left: 25px;">
+                    <tr>
+                        <td><label for="filter">{{lang.search}}:</label></td>
+                        <td><input type="text" id="filter" ng-model="searchFilter"></td>
+                    </tr>
+                </table>
                 <ul type="none">
-                    <li ng-repeat="user in Users | filter:searchFilter" class="list-row">
-                        {{$index + 1}}. {{user.name}} - {{user.email}} <span class="icon-font right clickable">&#xf014;</span><span class="icon-font right clickable">&#xf040;</span>
+                    <li ng-repeat="user in Users| filter:searchFilter" class="list-row">
+                        {{$index + 1}}. {{user.name}} - {{user.email}} - {{user.userRole.role}} <span class="icon-font right clickable {{User.username==user.name?'hide':'show'}}" ng-click="ClickDeleteUser($index)">&#xf014;</span><span class="icon-font right clickable" ng-click="ClickPrepareEditUser($index)">&#xf040;</span>
                     </li>
                 </ul>
             </div>
         </div>
         <div id="content">
+            <div ng-repeat="user in Users" class="list-row">
+                <div ng-repeat="u in user" class="list-row">
+                    {{u.key}} : {{u}}
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -44,14 +44,13 @@ services.service('User', ['$resource', 'UserAccounts', function($resource, UserA
         // @scope.name = "username",  @scope.password = "password"
         this.login = function(name, password) {
             UserAccounts.login({"userId": -1, "name": name, "email": name, "password": password}, function(user) {
+                console.log(user.userId);
                 if (user.userId != -1) {
-                    that.message = "";
                     that.usertype = user['userRole']['role'];
                     that.isLoggedIn = true;
                     that.password = null;          // decoration
                     that.username = user.name; // decoration
                 } else {
-                    that.message = "Wrong!";
                     that.usertype = null;
                     that.isLoggedIn = false;
                     that.password = null;          // decoration
@@ -99,9 +98,9 @@ services.service('UserAccounts', ['$resource', function($resource) {
 
         // @getUserAccounts() - Gets user accounts
         return $resource('./User/:uri/:param', {}, {
-            getById: {method: 'GET', params: {uri: "getById", param: "id"}, isArray: false},
-            getByName: {method: 'GET', params: {uri: "getByName", param: "name"}, isArray: false},
-            getByEmail: {method: 'GET', params: {uri: "getByEmail", param: "email"}, isArray: false}, // ne raboti poradi '.' vo mailovite
+            getById: {method: 'GET', params: {uri: "getById"}, isArray: false},
+            getByName: {method: 'GET', params: {uri: "getByName"}, isArray: false},
+            getByEmail: {method: 'GET', params: {uri: "getByEmail"}, isArray: false}, // ne raboti poradi '.' vo mailovite
             register: {method: 'POST', params: {uri: "register"}, isArray: false},
             getSessionUser: {method: 'GET', params: {uri: "getSessionUser"}, isArray: false},
             login: {method: 'POST', params: {uri: "login"}, isArray: false},
@@ -110,7 +109,7 @@ services.service('UserAccounts', ['$resource', function($resource) {
             queryAllUsertypes: {method: 'GET', params: {uri: "queryAllUserRoles"}, isArray: true},
             queryUsersByUsertype: {method: 'POST', params: {uri: "queryUsersByUserRole"}, isArray: true},
             update: {method: 'PUT', params: {uri: "update"}, isArray: false},
-            delete: {method: 'DELETE', params: {uri: "delete", param: "id"}, isArray: false}
+            delete: {method: 'DELETE', params: {uri: "delete"}, isArray: false}
         });
 
         return this;

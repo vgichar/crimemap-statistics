@@ -105,6 +105,43 @@ controllers.controller('settingsController', ['$scope', 'UserAccounts',
 
 controllers.controller('administrationController', ['$scope', 'UserAccounts',
     function($scope, UserAccounts) {
+        $scope.submit = "new";
         $scope.Users = UserAccounts.queryAll();
+        $scope.UserRoles = UserAccounts.queryAllUsertypes();
+        $scope.ClickRegisterUser = function() {
+            var user = {'userId': -1, 'name': $scope.name, 'email': $scope.email, 'password': $scope.password, 'userRole': {'role': $scope.userRole}};
+            UserAccounts.register(user, function(response){
+                if(response.userId != -1){
+                    $scope.Users.push(user);
+                }else{
+                    $(".message-box").trigger("showElem", ["User Already Exists!", "User already exists, plaese enter another username or email", 3000]);
+                }
+            });
+        }
+        $scope.ClickEditUser = function(index) {
+            var user = {'userId': $scope.Users[index].userId, 'name': $scope.name, 'email': $scope.email, 'password': $scope.password, 'userRole': {'role': $scope.userRole}};
+            UserAccounts.update(user, function(){                
+                if($scope.Users[index].name == $scope.User.username){
+                    $scope.User.logout();
+                    location.href="./invalid";
+                }
+                
+                $scope.Users[index] = user;
+            });
+        }
+        $scope.ClickPrepareEditUser = function(index) {
+            var user = $scope.Users[index];
+            $scope.name = user.name;
+            $scope.email = user.email;
+            $scope.password = null;
+            $scope.cpassword = null;
+            $scope.userRole = user.userRole.role;  
+            $scope.submit = index;            
+        }
+        $scope.ClickDeleteUser = function(index) {
+            UserAccounts.delete({param : $scope.Users[index].userId}, function(){
+                $scope.Users.splice(index, 1);
+            });
+        }
     }
 ]);

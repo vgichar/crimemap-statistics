@@ -24,7 +24,7 @@
                 </ul>
             </nav>
             <span class="icon-font clickable right" onclick="javascript: location.href = '#/settings'">&#xf085;</span>
-            <form id="login-form" action="#/home" autocomplete="off">
+            <form id="login-form" autocomplete="off">
                 <span class="{{User.isLoggedIn?'hide':'show'}}">
                     <label for="username">{{lang.name}}: </label>
                     <input type="text" id="username" placeholder="example" ng-model="User.username"/>

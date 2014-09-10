@@ -153,16 +153,22 @@ header .settings-bar{
     height: 35px;
 }
 
-input[type="submit"]:not(.icon-font){
+input[type="submit"]:not(.icon-font), button{
     color: #777;
     border-radius: 3px;
     border: 1px solid #999;
     background-color: white;
     cursor: pointer;
     font-weight: bold;
+    padding: 5px;
 }
 
-input[type="submit"]:not(.icon-font):hover{
+input[type="submit"]:not(.icon-font):disabled, button{
+    color: #999;
+    font-weight: normal;
+}
+
+input[type="submit"]:not(.icon-font):not(:disabled):hover, button:hover{
     color: white;
     background: #5285DB;
 }
