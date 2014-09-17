@@ -1,5 +1,6 @@
 package mk.edu.ukim.finki.mvr.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import mk.edu.ukim.finki.mvr.dao.DropDownListDao;
@@ -11,17 +12,50 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Service
-public class DropDownListServiceImpl implements DropDownListService{
+public class DropDownListServiceImpl implements DropDownListService {
 
-	@Autowired
-	DropDownListDao dropDownListDao;
-	
-	public List<DropDownList> queryAll() {
-		return dropDownListDao.queryAll();
-	}
+    @Autowired
+    DropDownListDao dropDownListDao;
 
-	public DropDownList getById(String key, String value) {
-		return dropDownListDao.getById(key, value);
-	}
+    @Override
+    public boolean insert(DropDownList entity) {
+        return dropDownListDao.insert(entity);
+    }
+
+    @Override
+    public void update(DropDownList entity) {
+        dropDownListDao.update(entity);
+    }
+
+    @Override
+    public void insertOrUpdate(DropDownList entity) {
+        dropDownListDao.insertOrUpdate(entity);
+    }
+
+    @Override
+    public void delete(String key, String value) {
+        dropDownListDao.delete(key, value);
+    }
+
+    @Override
+    public List<DropDownList> queryAll() {
+        return dropDownListDao.queryAll();
+    }
+
+    @Override
+    public List<DropDownList> queryByKey(String key) {
+        return dropDownListDao.queryByKey(key);
+    }
+
+    @Override
+    public DropDownList getByKeyAndValue(String key, String value) {
+        return dropDownListDao.getByKeyAndValue(key, value);
+    }
+
+    @Override
+    public List<DropDownList> getByDependencyKeyAndValue(String key, String value) {
+        List<DropDownList> list = dropDownListDao.getByDependencyKeyAndValue(key, value);
+        return list != null ? list : new LinkedList<DropDownList>();
+    }
 
 }

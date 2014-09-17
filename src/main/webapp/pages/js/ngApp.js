@@ -19,13 +19,9 @@ app.config(['$routeProvider', function($routeProvider) {
                     templateUrl: 'view/home.html', // view to display when this url is visited
                     controller: 'homeController' // controller to use when this url is visited
                 }).
-                when('/event/:eventId', {// same as above...
-                    templateUrl: 'view/event-detail.html', // ...
-                    controller: 'eventController'
-                }).
-                when('/municipality/:municipalityId', {
-                    templateUrl: 'view/municipality-detail.html',
-                    controller: 'municipalityController'
+                when('/filter/:eventId', {
+                    templateUrl: 'view/filter.html',
+                    controller: 'filterController'
                 }).
                 when('/filter', {
                     templateUrl: 'view/filter.html',
@@ -47,12 +43,22 @@ app.config(['$routeProvider', function($routeProvider) {
 app.config(['$httpProvider', function($httpProvider) {
         $httpProvider.interceptors.push(function($q) {
             return {
-                'responseError': function(rejection) {
+                responseError: function(rejection) {
                     if (rejection.status == 403) {
                         // lang
                         $(".message-box").trigger("showElem", ["No permission!", "You don't have permission to do that action", 5000]);
                     }
                     return $q.reject(rejection);
+                },
+                
+                response: function(response) {
+                    $(".overlay-box").trigger("hideElem");
+                    return response;
+                },
+                
+                request: function(config) {
+                    $(".overlay-box").trigger("showElem");
+                    return config;
                 }
             };
         });

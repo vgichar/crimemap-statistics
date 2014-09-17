@@ -14,4 +14,6 @@ public interface UserService {
     public List<User> queryAll();
     public List<UserRole> queryAllUserRoles();
     public List<User> queryUsersByUserRole(UserRole usertype);
+    public List<User> queryUsersByPS(String PS);
+    public List<User> queryUsersBySVR(String SVR);
 }

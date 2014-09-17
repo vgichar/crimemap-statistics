@@ -81,4 +81,14 @@ public class UserServiceImpl implements UserService {
     public List<User> queryUsersByUserRole(UserRole usertype) {
         return usertypeDao.queryUsersByUserRole(usertype);
     }
+
+    @Override
+    public List<User> queryUsersByPS(String PS) {
+        return userDao.queryByPS(PS);
+    }
+
+    @Override
+    public List<User> queryUsersBySVR(String SVR) {
+        return userDao.queryBySVR(SVR);
+    }
 }

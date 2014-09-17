@@ -38,6 +38,14 @@ body{
     border-bottom: 1px solid black;
 }
 
+.overlay-box{
+    background-image: url('../img/ajax-loader.gif');
+    width: 15px;
+    height: 15px;
+    display: none;
+    position: absolute;
+}
+
 .hide{
     display: none;
 }

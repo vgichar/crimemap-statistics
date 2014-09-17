@@ -40,8 +40,27 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="submit" ng-model="submit" value="{{lang.submit}}" ng-click="submit=='new'?ClickRegisterUser():ClickEditUser(submit);" ng-disabled="form.$invalid || password != cpassword" /></td>
-                            <td><button ng-click="submit='new'; name=null; email=null; userRole=null;" class="{{submit!='new'?'show':'hide'}}">{{lang.newUser}}</button></td>
+                            <td><label for="roles">{{lang.SVR}}:</label></td>
+                            <td>
+                                <select id="roles" ng-model="SVR" required>
+                                    <option ng-repeat="svrObc in SVRs" value="{{svrObc.value}}">{{svrObc.value}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr ng-class="SVR==null?'hide':'show'">
+                            <td><label for="roles">{{lang.PS}}:</label></td>
+                            <td>
+                                <select id="roles" ng-model="PS" required>
+                                    <option ng-repeat="psOb in PSs| filter:SVR" value="{{psOb.value}}">{{psOb.value}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" ng-model="submit" value="{{lang.submit}}" ng-click="submit == 'new' ? ClickRegisterUser() : ClickEditUser(submit);" ng-disabled="form.$invalid || password != cpassword" /></td>
+                            <td><button ng-click="submit = 'new';
+                                        name = null;
+                                        email = null;
+                                        userRole = null;" class="{{submit!='new'?'show':'hide'}}">{{lang.newUser}}</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -55,16 +74,67 @@
                 </table>
                 <ul type="none">
                     <li ng-repeat="user in Users| filter:searchFilter" class="list-row">
-                        {{$index + 1}}. {{user.name}} - {{user.email}} - {{user.userRole.role}} <span class="icon-font right clickable {{User.username==user.name?'hide':'show'}}" ng-click="ClickDeleteUser($index)">&#xf014;</span><span class="icon-font right clickable" ng-click="ClickPrepareEditUser($index)">&#xf040;</span>
+                        {{$index + 1}}. {{user.name}} - {{user.email}} - {{user.userRole.role}} <span class="icon-font right clickable {{User.username==user.name?'hide':'show'}}" ng-click="ClickDeleteUser(user.name)">&#xf014;</span><span class="icon-font right clickable" ng-click="ClickPrepareEditUser(user.name)">&#xf040;</span>
                     </li>
                 </ul>
             </div>
         </div>
         <div id="content">
-            <div ng-repeat="user in Users" class="list-row">
-                <div ng-repeat="u in user" class="list-row">
-                    {{u.key}} : {{u}}
-                </div>
+            <form novalidate name="attrForm" >
+                <table style="width: 30%;" class="left panel">
+                    <tr>
+                        <td><label for="dependencyValue">{{lang.attribute}}:</label></td> 
+                        <td><select id="attributeKey" ng-options="key.key for key in Keys" ng-model="selectedKey"></select></td> 
+                    </tr>
+                    <tr ng-class="selectedKey.dependency==null?'hide':'show'">
+                        <td><label for="dependencyValue">{{lang.dependencyValue}}:</label></td>
+                        <td>
+                            <select ng-model="selectedDependencyValue">
+                                <option id="dependencyValue" ng-repeat="ddo in AllDropDown| filter:{key:selectedKey.dependency}">{{ddo.value}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="attrValue">{{lang.value}}:</label></td>
+                        <td><input type="text" id="attrValue" ng-model="attrValue" required/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="{{lang.submit}}" ng-click="ClickRegisterAttribute();" ng-disabled="attrForm.$invalid" /></td>
+
+                    </tr>
+                </table>
+            </form>
+
+            <div style="width: 65%;" class="right pannel" ng-class="selectedKey.dependency==null?'hide':selectedDependencyValue == null?'hide':'show'">
+
+                <table style="padding-left: 25px;">
+                    <tr>
+                        <td><label for="filterAttr">{{lang.search}}:</label></td>
+                        <td><input type="text" id="filterAttr" ng-model="searchFilterAttr"></td>
+                    </tr>
+                </table>
+
+                <ul type="none">
+                    <li ng-repeat="ddo in AllDropDown| filter:{key:selectedKey.key} | filter:{dependencyValue:selectedDependencyValue} | filter:searchFilterAttr" class="list-row">
+                        {{$index + 1}}. {{ddo.value}} - {{ddo.dependencyValue}}<span class="icon-font right clickable" ng-click="ClickDeleteAttribute(ddo.value)">&#xf014;</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="width: 65%;" class="right pannel" ng-class="selectedKey.dependency!=null?'hide':selectedKey.key == null?'hide':'show'">
+
+                <table style="padding-left: 25px;">
+                    <tr>
+                        <td><label for="filterAttr">{{lang.search}}:</label></td>
+                        <td><input type="text" id="filterAttr" ng-model="searchFilterAttr"></td>
+                    </tr>
+                </table>
+
+                <ul type="none">
+                    <li ng-repeat="ddo in AllDropDown| filter:{key:selectedKey.key} | filter:searchFilterAttr" class="list-row">
+                        {{$index + 1}}. {{ddo.value}}<span class="icon-font right clickable" ng-click="ClickDeleteAttribute(ddo.value)">&#xf014;</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

@@ -1,4 +1,9 @@
 {
+	"value" : "Value",
+	"dependencyValue" : "Dependency Value",
+	"attribute" : "Attribute",
+	"PS" : "Police Station",
+	"SVR" : "Sector of Internal Afairs",
     "editUser" :"Edit User",
     "submit" : "Submit",
     "role" : "Role",

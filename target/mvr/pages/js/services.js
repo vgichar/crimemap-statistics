@@ -17,7 +17,7 @@ var services = angular.module('services', ['ngResource']);
 services.service('Navigation', [function() {
         this.visit = function(link) {
             $("nav a").parent("li").removeClass("android-active");
-            $("nav a[href*='" + link + "']").parent("li").addClass("android-active");
+            $("nav a[href*='" + link.split("/")[1] + "']").parent("li").addClass("android-active");
         }
         return this;
     }]);
@@ -44,17 +44,20 @@ services.service('User', ['$resource', 'UserAccounts', function($resource, UserA
         // @scope.name = "username",  @scope.password = "password"
         this.login = function(name, password) {
             UserAccounts.login({"userId": -1, "name": name, "email": name, "password": password}, function(user) {
-                console.log(user.userId);
                 if (user.userId != -1) {
                     that.usertype = user['userRole']['role'];
                     that.isLoggedIn = true;
                     that.password = null;          // decoration
                     that.username = user.name; // decoration
+                    that.ps = user.ps;
+                    that.svr = user.svr;
                 } else {
                     that.usertype = null;
                     that.isLoggedIn = false;
                     that.password = null;          // decoration
                     that.username = null;          // decoration
+                    that.ps = null;
+                    that.svr = null;
                     $(".message-box").trigger("showElem", ["Invalid credentials", "Invalid username or password", 5000]);
                 }
             });
@@ -67,6 +70,8 @@ services.service('User', ['$resource', 'UserAccounts', function($resource, UserA
                 that.usertype = null;
                 that.password = null;          // decoration
                 that.username = null;          // decoration
+                that.ps = null;
+                that.svr = null;
             });
         }
 
@@ -78,11 +83,15 @@ services.service('User', ['$resource', 'UserAccounts', function($resource, UserA
                     that.isLoggedIn = true;
                     that.password = null;          // decoration
                     that.username = user.name; // decoration
+                    that.ps = user.ps;
+                    that.svr = user.svr;
                 } else {
                     that.usertype = null;
                     that.isLoggedIn = false;
                     that.password = null;          // decoration
                     that.username = null;          // decoration
+                    that.ps = null;
+                    that.svr = null;
                 }
             });
         }
@@ -97,7 +106,7 @@ services.service('User', ['$resource', 'UserAccounts', function($resource, UserA
 services.service('UserAccounts', ['$resource', function($resource) {
 
         // @getUserAccounts() - Gets user accounts
-        return $resource('./User/:uri/:param', {}, {
+        return $resource('./User/:uri/:param/:param2', {}, {
             getById: {method: 'GET', params: {uri: "getById"}, isArray: false},
             getByName: {method: 'GET', params: {uri: "getByName"}, isArray: false},
             getByEmail: {method: 'GET', params: {uri: "getByEmail"}, isArray: false}, // ne raboti poradi '.' vo mailovite
@@ -108,6 +117,24 @@ services.service('UserAccounts', ['$resource', function($resource) {
             queryAll: {method: 'GET', params: {uri: "queryAll"}, isArray: true},
             queryAllUsertypes: {method: 'GET', params: {uri: "queryAllUserRoles"}, isArray: true},
             queryUsersByUsertype: {method: 'POST', params: {uri: "queryUsersByUserRole"}, isArray: true},
+            queryUsersByPS: {method: 'GET', params: {uri: "queryUsersByPS"}, isArray: true},
+            queryUsersBySVR: {method: 'GET', params: {uri: "queryUsersBySVR"}, isArray: true},
+            update: {method: 'PUT', params: {uri: "update"}, isArray: false},
+            delete: {method: 'DELETE', params: {uri: "delete"}, isArray: false}
+        });
+
+        return this;
+    }]);
+
+services.service('DropDownListValues', ['$resource', function($resource) {
+
+        // @getUserAccounts() - Gets user accounts
+        return $resource('./DropDownList/:uri/:param/:param2', {}, {
+            getByKeyAndValue: {method: 'GET', params: {uri: "getByKeyAndValue"}, isArray: false},
+            insert: {method: 'POST', params: {uri: "insert"}, isArray: false},
+            queryAll: {method: 'GET', params: {uri: "queryAll"}, isArray: true},
+            queryAllKeys: {method: 'GET', params: {uri: "queryAllKeys"}, isArray: true},
+            queryByKey: {method: 'GET', params: {uri: "queryByKey"}, isArray: true},
             update: {method: 'PUT', params: {uri: "update"}, isArray: false},
             delete: {method: 'DELETE', params: {uri: "delete"}, isArray: false}
         });

@@ -22,6 +22,10 @@ public class User {
     private UserRole userRole;
     
     private boolean readOnlyPermission;
+    
+    private String PS;
+    
+    private String SVR;
 
     public int getUserId() {
         return userId;
@@ -70,6 +74,22 @@ public class User {
     public void setReadOnlyPermission(boolean readOnlyPermission) {
         this.readOnlyPermission = readOnlyPermission;
     }
+
+    public String getPS() {
+        return PS;
+    }
+
+    public void setPS(String PS) {
+        this.PS = PS;
+    }
+
+    public String getSVR() {
+        return SVR;
+    }
+
+    public void setSVR(String SVR) {
+        this.SVR = SVR;
+    }
     
     public void update(User u){
         this.name = u.getName();
@@ -77,5 +97,7 @@ public class User {
         this.password = u.getPassword();
         this.userRole = u.getUserRole();
         this.readOnlyPermission = u.getReadOnlyPermission();
+        this.PS = u.getPS();
+        this.SVR = u.getSVR();
     }
 }

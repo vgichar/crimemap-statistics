@@ -68,79 +68,110 @@ controllers.controller('settingsController', ['$scope',
 
 // configure @filterController dynamically asigned via @ngApp.js route configuration
 // Dependencies :   @$scope - native
-controllers.controller('filterController', ['$scope',
-    function($scope) {
-    }
-]);
-
-// configure @aboutController dynamically asigned via @ngApp.js route configuration
-// Dependencies :   @$scope - native
-controllers.controller('aboutController', ['$scope',
-    function($scope) {
-    }
-]);
-
-// configure @eventController dynamically asigned via @ngApp.js route configuration
-// Dependencies :   @$scope - native,   @$routeParams - native
-controllers.controller('eventController', ['$scope', '$routeParams',
+controllers.controller('filterController', ['$scope', '$routeParams',
     function($scope, $routeParams) {
         $scope.eventId = $routeParams.eventId;
     }
 ]);
 
-// configure @municipalityController dynamically asigned via @ngApp.js route configuration
-// Dependencies :   @$scope - native,   @$routeParams - native
-controllers.controller('municipalityController', ['$scope', '$routeParams',
-    function($scope, $routeParams) {
-        $scope.municipalityId = $routeParams.municipalityId;
-    }
-]);
-
-// configure @municipalityController dynamically asigned via @ngApp.js route configuration
-// Dependencies :   @$scope - native,   @$routeParams - native
-controllers.controller('settingsController', ['$scope', 'UserAccounts',
-    function($scope, UserAccounts) {
-    }
-]);
-
-controllers.controller('administrationController', ['$scope', 'UserAccounts',
-    function($scope, UserAccounts) {
+controllers.controller('administrationController', ['$scope', 'UserAccounts', "DropDownListValues",
+    function($scope, UserAccounts, DropDownListValues) {
         $scope.submit = "new";
         $scope.Users = UserAccounts.queryAll();
         $scope.UserRoles = UserAccounts.queryAllUsertypes();
+        $scope.SVRs = DropDownListValues.queryByKey({param: "SVR"});
+        $scope.PSs = DropDownListValues.queryByKey({param: "PS"});
+        $scope.Keys = DropDownListValues.queryAllKeys();
+        $scope.AllDropDown = DropDownListValues.queryAll();
+
         $scope.ClickRegisterUser = function() {
-            var user = {'userId': -1, 'name': $scope.name, 'email': $scope.email, 'password': $scope.password, 'userRole': {'role': $scope.userRole}};
-            UserAccounts.register(user, function(response){
-                if(response.userId != -1){
+            var user = {'userId': -1, 'name': $scope.name, 'email': $scope.email, 'password': $scope.password, 'userRole': {'role': $scope.userRole}, 'ps': $scope.PS, 'svr': $scope.SVR};
+            UserAccounts.register(user, function(response) {
+                if (response.userId != -1) {
                     $scope.Users.push(user);
-                }else{
+                } else {
                     $(".message-box").trigger("showElem", ["User Already Exists!", "User already exists, plaese enter another username or email", 3000]);
                 }
             });
         }
-        $scope.ClickEditUser = function(index) {
-            var user = {'userId': $scope.Users[index].userId, 'name': $scope.name, 'email': $scope.email, 'password': $scope.password, 'userRole': {'role': $scope.userRole}};
-            UserAccounts.update(user, function(){                
-                if($scope.Users[index].name == $scope.User.username){
-                    $scope.User.logout();
-                    location.href="./invalid";
+
+        $scope.ClickEditUser = function(name) {
+            var index = null;
+            for (var i = 0; i < $scope.Users.length; i++) {
+                if ($scope.Users[i].name == name) {
+                    index = i;
+                    break;
                 }
-                
+            }
+            var user = {'userId': $scope.Users[index].userId, 'name': $scope.name, 'email': $scope.email, 'password': $scope.password, 'userRole': {'role': $scope.userRole}, 'ps': $scope.PS, 'svr': $scope.SVR};
+            UserAccounts.update(user, function() {
+                if ($scope.Users[index].name == $scope.User.username) {
+                    $scope.User.logout();
+                    location.href = "./invalid";
+                }
+
                 $scope.Users[index] = user;
             });
         }
-        $scope.ClickPrepareEditUser = function(index) {
-            var user = $scope.Users[index];
+        $scope.ClickPrepareEditUser = function(name) {
+            var user = null;
+            for (var i = 0; i < $scope.Users.length; i++) {
+                if ($scope.Users[i].name == name) {
+                    user = $scope.Users[i];
+                    break;
+                }
+            }
+
             $scope.name = user.name;
             $scope.email = user.email;
             $scope.password = null;
             $scope.cpassword = null;
-            $scope.userRole = user.userRole.role;  
-            $scope.submit = index;            
+            $scope.userRole = user.userRole.role;
+            $scope.PS = user.ps;
+            $scope.SVR = user.svr;
+            $scope.submit = name;
         }
-        $scope.ClickDeleteUser = function(index) {
-            UserAccounts.delete({param : $scope.Users[index].userId}, function(){
+        $scope.ClickDeleteUser = function(name) {
+            var index = null;
+            for (var i = 0; i < $scope.Users.length; i++) {
+                if ($scope.Users[i].name == name) {
+                    index = i;
+                    break;
+                }
+            }
+            UserAccounts.delete({param: $scope.Users[index].userId}, function() {
                 $scope.Users.splice(index, 1);
+            });
+        }
+
+
+        $scope.ClickRegisterAttribute = function() {
+            var attr = {'key': $scope.selectedKey.key, 'value': $scope.attrValue, 'dependencyKey': $scope.selectedKey.dependency, 'dependencyValue': $scope.selectedDependencyValue};
+            DropDownListValues.insert(attr, function(response) {
+                if (response[0] != "f") {
+                    $scope.AllDropDown.push(attr);
+                } else {
+                    $(".message-box").trigger("showElem", ["Attribute Already Exists!", "Attribute already exists, plaese enter another!", 3000]);
+                }
+            });
+        }
+        $scope.ClickDeleteAttribute = function(value) {
+            var index = null;
+            for (var i = 0; i < $scope.AllDropDown.length; i++) {
+                if ($scope.AllDropDown[i].value == value) {
+                    index = i;
+                    break;
+                }
+            }
+            DropDownListValues.delete({param: $scope.AllDropDown[index].key, param2: $scope.AllDropDown[index].value}, function() {
+                $scope.AllDropDown.splice(index, 1);
+
+                for (var i = 0; i < $scope.AllDropDown.length; i++) {
+                    if ($scope.AllDropDown[i].dependencyKey == $scope.selectedKey.key && $scope.AllDropDown[i].dependencyValue == value) {
+                        $scope.AllDropDown.splice(i, 1);
+                        i--;
+                    }
+                }
             });
         }
     }

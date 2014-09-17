@@ -14,15 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class DependencyServiceImpl implements DependencyService {
 
-	@Autowired
-	DependencyDao dependencyDao;
+    @Autowired
+    DependencyDao dependencyDao;
 
-	public List<Dependency> queryAll() {
-		return dependencyDao.queryAll();
-	}
+    public List<Dependency> queryAll() {
+        return dependencyDao.queryAll();
+    }
 
-	public Dependency getById(DropDownList d) {
-		return dependencyDao.getById(d.getId().getKey(), d.getId().getValue());
-	}
-	
+    public Dependency getById(DropDownList d) {
+        return null;
+    }
+
 }

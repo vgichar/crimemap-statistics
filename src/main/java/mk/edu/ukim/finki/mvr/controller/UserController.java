@@ -10,7 +10,6 @@ import mk.edu.ukim.finki.mvr.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -131,5 +130,19 @@ public class UserController {
     public @ResponseBody
     List<User> queryUsersByUsertype(@RequestBody UserRole usertype) {
         return service.queryUsersByUserRole(usertype);
+    }
+
+    @Secured(value = {"ROLE_ADMIN"})
+    @RequestMapping(value = "queryUsersByPS/{PS}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<User> queryUsersByPS(@PathVariable String PS) {
+        return service.queryUsersByPS(PS);
+    }
+
+    @Secured(value = {"ROLE_ADMIN"})
+    @RequestMapping(value = "queryUsersBySVR/{SVR}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<User> queryUsersBySVR(@PathVariable String SVR) {
+        return service.queryUsersBySVR(SVR);
     }
 }

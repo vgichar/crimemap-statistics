@@ -17,13 +17,18 @@
     </head>
     <body ng-controller="indexController" ng-init="init()">
         <header>
-            <a href="http://www.mvr.gov.mk/"><img class="header-logo" src="./img/mvrLogo.png"></a>
+            <a href="http://www.mvr.gov.mk/">
+                <img class="header-logo" src="./img/mvrLogo.png">
+            </a>
             <nav>
                 <ul>
                     <li><a href="#/home">{{lang.home}}</a></li><li><a href="#/filter">{{lang.filter}}</a></li><li class="{{User.usertype=='ROLE_ADMIN'?'show':'hide'}}"><a href="#/administration">{{lang.administration}}</a></li>
                 </ul>
             </nav>
-            <span class="icon-font clickable right" onclick="javascript: location.href = '#/settings'">&#xf085;</span>
+            <span class="icon-font clickable right" onclick="javascript: location.href = '#/settings'">
+                <overlay-box></overlay-box>
+                &#xf085;
+            </span>
             <form id="login-form" autocomplete="off">
                 <span class="{{User.isLoggedIn?'hide':'show'}}">
                     <label for="username">{{lang.name}}: </label>

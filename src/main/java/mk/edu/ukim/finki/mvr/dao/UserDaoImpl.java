@@ -77,4 +77,18 @@ public class UserDaoImpl implements UserDao {
                 .setParameter("email", email);
         return (User) q.uniqueResult();
     }
+
+    @Override
+    public List<User> queryByPS(String PS) {
+        Query q = getCurrentSession().createQuery("from Users where PS = :PS")
+                .setParameter("PS", PS);
+        return (List<User>) q.list();
+    }
+
+    @Override
+    public List<User> queryBySVR(String SVR) {
+        Query q = getCurrentSession().createQuery("from Users where SVR = :SVR")
+                .setParameter("SVR", SVR);
+        return (List<User>) q.list();
+    }
 }

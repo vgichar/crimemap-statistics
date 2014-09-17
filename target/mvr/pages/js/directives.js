@@ -48,3 +48,23 @@ directives.directive('messageBox', function() {
         }
     };
 });
+
+directives.directive('overlayBox', function() {
+    return {
+        restrict: 'E',
+        link: function(scope, element, attrs) {
+            element.addClass("overlay-box");
+            
+            element.on("showElem", function() {
+                element.css({display: "block"});
+                element.animate({opacity: 1}, "fast");
+            });
+
+            element.on("hideElem", function() {
+                element.animate({opacity: 0}, "fast", function() {
+                    element.css({display: "none"});
+                });
+            });
+        }
+    };
+});
